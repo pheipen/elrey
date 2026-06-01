@@ -52,22 +52,7 @@
             z-index: 1;
         }
 
-        /* ── CARPET BORDER FRAME ── */
-        .frame {
-            position: fixed;
-            inset: 0;
-            z-index: 10;
-            pointer-events: none;
-            border: 28px solid #0A0505;
-            box-shadow:
-                inset 0 0 0 2px #EAD8B8,
-                inset 0 0 0 5px #0A0505,
-                inset 0 0 0 7px #EAD8B8,
-                inset 0 0 0 9px #0A0505;
-        }
-        @media (max-width: 540px) {
-            .frame { border-width: 14px; }
-        }
+        .frame { display: none; }
 
         /* ── CONTENT ── */
         .container {
