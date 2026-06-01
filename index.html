@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="de"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EL REY – EP von Reyan.Rami &amp; Vigaz Beats. Ab 26.06.26 überall verfügbar.">
+    <title>EL REY — Reyan.Rami &amp; Vigaz Beats</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="EL%20REY%20%E2%80%94%20Reyan.Rami%20&amp;%20Vigaz%20Beats_files/css2.css" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        :root {
+            --navy:   #05081A;
+            --cream:  #C8B898;
+            --blue:   #8BAACC;
+            --rose:   #C09070;
+            --text:   #E8DCC8;
+            --muted:  rgba(232,220,200,0.38);
+        }
+
+        html, body { height:100%; }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            font-family: 'Courier Prime', monospace;
+            color: var(--text);
+        }
+
+        /* ── CARPET SVG ── */
+        #carpet {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 3, 14, 0.50);
+            z-index: 1;
+        }
+
+        /* ── CONTENT ── */
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 500px;
+            padding: 60px 28px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        @keyframes rise {
+            from { opacity:0; transform:translateY(16px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        @keyframes glow {
+            0%,100% { text-shadow: 0 0 60px rgba(200,184,152,0.10), 3px 3px 0 rgba(0,0,0,0.6); }
+            50%      { text-shadow: 0 0 110px rgba(200,184,152,0.22), 3px 3px 0 rgba(0,0,0,0.6); }
+        }
+
+        .a1 { animation: rise 0.9s ease 0.10s both; }
+        .a2 { animation: rise 0.9s ease 0.30s both; }
+        .a3 { animation: rise 0.9s ease 0.50s both, glow 6s ease 1.5s infinite; }
+        .a4 { animation: rise 0.9s ease 0.65s both; }
+        .a5 { animation: rise 0.9s ease 0.80s both; }
+        .a6 { animation: rise 0.9s ease 1.00s both; }
+
+        .label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.44em;
+            text-transform: uppercase;
+            color: var(--cream);
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+
+        /* ornament */
+        .orn { display:flex; align-items:center; gap:9px; width:100%; margin-bottom:16px; }
+        .orn-l  { flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--cream)); opacity:0.45; }
+        .orn-r  { flex:1; height:1px; background:linear-gradient(90deg,var(--cream),transparent); opacity:0.45; }
+        .orn-d  { width:6px; height:6px; background:var(--cream); transform:rotate(45deg); flex-shrink:0; opacity:0.6; }
+        .orn-dt { width:3px; height:3px; background:var(--cream); transform:rotate(45deg); flex-shrink:0; opacity:0.45; }
+
+        /* TITLE */
+        .title {
+            font-family: 'Big Shoulders Display', sans-serif;
+            font-weight: 900;
+            font-size: clamp(96px, 28vw, 172px);
+            line-height: 0.87;
+            color: var(--text);
+            letter-spacing: -0.01em;
+            transform: scaleX(1.12);
+            transform-origin: center;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.6);
+            margin-bottom: 20px;
+        }
+
+        .artist {
+            font-size: 10.5px;
+            letter-spacing: 0.30em;
+            text-transform: uppercase;
+            color: var(--text);
+            opacity: 0.62;
+            margin-bottom: 5px;
+        }
+
+        .date {
+            font-size: 9.5px;
+            letter-spacing: 0.40em;
+            text-transform: uppercase;
+            color: var(--cream);
+            opacity: 0.55;
+            margin-bottom: 50px;
+        }
+
+        /* ── LINKS ── */
+        .links { width:100%; display:flex; flex-direction:column; gap:9px; }
+
+        .btn {
+            display:flex; align-items:center; justify-content:center; gap:8px;
+            width:100%; padding:15px 22px;
+            font-family:'Courier Prime',monospace;
+            font-size:11px; font-weight:700;
+            letter-spacing:0.22em; text-transform:uppercase;
+            text-decoration:none; cursor:pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--text); color: #06091A;
+            border: 1px solid var(--text);
+        }
+        .btn-primary:hover { background: var(--cream); border-color:var(--cream); }
+
+        .btn-secondary {
+            background: transparent; color: var(--text);
+            border: 1px solid rgba(232,220,200,0.28);
+        }
+        .btn-secondary:hover { border-color: rgba(232,220,200,0.65); }
+
+        .ig-row { display:flex; gap:9px; width:100%; }
+
+        .btn-ig {
+            flex:1; background:transparent; color:var(--text);
+            border:1px solid rgba(232,220,200,0.20);
+            font-size:10px; letter-spacing:0.18em;
+        }
+        .btn-ig:hover { border-color:rgba(232,220,200,0.5); }
+
+        .footer {
+            margin-top:52px;
+            font-size:8.5px;
+            letter-spacing:0.22em;
+            color:var(--muted);
+            text-transform:uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ────────────── NAIN-STYLE PERSIAN CARPET ────────────── -->
+<svg id="carpet" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+  <!-- ── reusable shapes ── -->
+
+  <!-- 8-petal medallion flower, center at origin, outer radius ~22px -->
+  <g id="f8">
+    <ellipse cx="0" cy="-12" rx="4" ry="8" fill="#C8B898" opacity="0.82"></ellipse>
+    <ellipse cx="0" cy="-12" rx="4" ry="8" fill="#C8B898" opacity="0.82" transform="rotate(45)"></ellipse>
+    <ellipse cx="0" cy="-12" rx="4" ry="8" fill="#C8B898" opacity="0.82" transform="rotate(90)"></ellipse>
+    <ellipse cx="0" cy="-12" rx="4" ry="8" fill="#C8B898" opacity="0.82" transform="rotate(135)"></ellipse>
+    <ellipse cx="0" cy="-12" rx="4" ry="8" fill="#C8B898" opacity="0.82" transform="rotate(180)"></ellipse>
+    <ellipse cx="0" cy="-12" rx="4" ry="8" fill="#C8B898" opacity="0.82" transform="rotate(225)"></ellipse>
+    <ellipse cx="0" cy="-12" rx="4" ry="8" fill="#C8B898" opacity="0.82" transform="rotate(270)"></ellipse>
+    <ellipse cx="0" cy="-12" rx="4" ry="8" fill="#C8B898" opacity="0.82" transform="rotate(315)"></ellipse>
+    <circle cx="0" cy="0" r="6.5" fill="#8BAACC"></circle>
+    <circle cx="0" cy="0" r="3.5" fill="#C09070"></circle>
+    <circle cx="0" cy="0" r="1.5" fill="#05081A"></circle>
+  </g>
+
+  <!-- 6-petal medium flower, outer radius ~12px -->
+  <g id="f6">
+    <ellipse cx="0" cy="-8" rx="2.8" ry="5.5" fill="#C8B898" opacity="0.75"></ellipse>
+    <ellipse cx="0" cy="-8" rx="2.8" ry="5.5" fill="#C8B898" opacity="0.75" transform="rotate(60)"></ellipse>
+    <ellipse cx="0" cy="-8" rx="2.8" ry="5.5" fill="#C8B898" opacity="0.75" transform="rotate(120)"></ellipse>
+    <ellipse cx="0" cy="-8" rx="2.8" ry="5.5" fill="#C8B898" opacity="0.75" transform="rotate(180)"></ellipse>
+    <ellipse cx="0" cy="-8" rx="2.8" ry="5.5" fill="#C8B898" opacity="0.75" transform="rotate(240)"></ellipse>
+    <ellipse cx="0" cy="-8" rx="2.8" ry="5.5" fill="#C8B898" opacity="0.75" transform="rotate(300)"></ellipse>
+    <circle cx="0" cy="0" r="3.5" fill="#8BAACC" opacity="0.9"></circle>
+    <circle cx="0" cy="0" r="1.5" fill="#05081A"></circle>
+  </g>
+
+  <!-- 6-petal small flower, outer radius ~8px -->
+  <g id="f6s">
+    <ellipse cx="0" cy="-5.5" rx="2" ry="4" fill="#C8B898" opacity="0.65"></ellipse>
+    <ellipse cx="0" cy="-5.5" rx="2" ry="4" fill="#C8B898" opacity="0.65" transform="rotate(60)"></ellipse>
+    <ellipse cx="0" cy="-5.5" rx="2" ry="4" fill="#C8B898" opacity="0.65" transform="rotate(120)"></ellipse>
+    <ellipse cx="0" cy="-5.5" rx="2" ry="4" fill="#C8B898" opacity="0.65" transform="rotate(180)"></ellipse>
+    <ellipse cx="0" cy="-5.5" rx="2" ry="4" fill="#C8B898" opacity="0.65" transform="rotate(240)"></ellipse>
+    <ellipse cx="0" cy="-5.5" rx="2" ry="4" fill="#C8B898" opacity="0.65" transform="rotate(300)"></ellipse>
+    <circle cx="0" cy="0" r="2.5" fill="#8BAACC" opacity="0.8"></circle>
+    <circle cx="0" cy="0" r="1" fill="#05081A"></circle>
+  </g>
+
+  <!-- 4-petal tiny flower (branch tips) -->
+  <g id="f4">
+    <ellipse cx="0" cy="-4" rx="1.5" ry="3" fill="#C8B898" opacity="0.6"></ellipse>
+    <ellipse cx="0" cy="-4" rx="1.5" ry="3" fill="#C8B898" opacity="0.6" transform="rotate(90)"></ellipse>
+    <ellipse cx="0" cy="-4" rx="1.5" ry="3" fill="#C8B898" opacity="0.6" transform="rotate(180)"></ellipse>
+    <ellipse cx="0" cy="-4" rx="1.5" ry="3" fill="#C8B898" opacity="0.6" transform="rotate(270)"></ellipse>
+    <circle cx="0" cy="0" r="2" fill="#C09070" opacity="0.75"></circle>
+  </g>
+
+  <!-- tiny leaf -->
+  <ellipse id="lf" cx="0" cy="0" rx="1.4" ry="4.5" fill="#C8B898" opacity="0.55"></ellipse>
+
+  <!-- ── TILE PATTERN (150×150) ── -->
+  <pattern id="rug" x="0" y="0" width="150" height="150" patternUnits="userSpaceOnUse">
+
+    <!-- base dark navy -->
+    <rect width="150" height="150" fill="#05081A"></rect>
+
+    <!-- very subtle texture: faint grid lines -->
+    <line x1="0" y1="75" x2="150" y2="75" stroke="#C8B898" stroke-width="0.2" opacity="0.08"></line>
+    <line x1="75" y1="0" x2="75" y2="150" stroke="#C8B898" stroke-width="0.2" opacity="0.08"></line>
+
+    <!-- ===== VINES ===== -->
+
+    <!-- Main horizontal S-vine (primary) -->
+    <path d="M 0,75 C 32,38 58,38 75,75 C 92,112 118,112 150,75" fill="none" stroke="#C8B898" stroke-width="2" stroke-linecap="round" opacity="0.82"></path>
+    <!-- Mirror of H-vine (secondary, thinner) -->
+    <path d="M 0,75 C 32,112 58,112 75,75 C 92,38 118,38 150,75" fill="none" stroke="#C8B898" stroke-width="0.9" stroke-linecap="round" opacity="0.35"></path>
+
+    <!-- Main vertical S-vine (primary) -->
+    <path d="M 75,0 C 38,32 38,58 75,75 C 112,92 112,118 75,150" fill="none" stroke="#C8B898" stroke-width="2" stroke-linecap="round" opacity="0.82"></path>
+    <!-- Mirror of V-vine (secondary) -->
+    <path d="M 75,0 C 112,32 112,58 75,75 C 38,92 38,118 75,150" fill="none" stroke="#C8B898" stroke-width="0.9" stroke-linecap="round" opacity="0.35"></path>
+
+    <!-- Diagonal branches from center -->
+    <path d="M 75,75 C 65,65 53,53 38,38" fill="none" stroke="#C8B898" stroke-width="1.4" stroke-linecap="round" opacity="0.72"></path>
+    <path d="M 75,75 C 85,65 97,53 112,38" fill="none" stroke="#C8B898" stroke-width="1.4" stroke-linecap="round" opacity="0.72"></path>
+    <path d="M 75,75 C 65,85 53,97 38,112" fill="none" stroke="#C8B898" stroke-width="1.4" stroke-linecap="round" opacity="0.72"></path>
+    <path d="M 75,75 C 85,85 97,97 112,112" fill="none" stroke="#C8B898" stroke-width="1.4" stroke-linecap="round" opacity="0.72"></path>
+
+    <!-- Sub-branches from H-vine midpoints -->
+    <path d="M 37,75 C 32,64 27,57 21,50" fill="none" stroke="#C8B898" stroke-width="1" stroke-linecap="round" opacity="0.55"></path>
+    <path d="M 37,75 C 32,86 27,93 21,100" fill="none" stroke="#C8B898" stroke-width="1" stroke-linecap="round" opacity="0.55"></path>
+    <path d="M 113,75 C 118,64 123,57 129,50" fill="none" stroke="#C8B898" stroke-width="1" stroke-linecap="round" opacity="0.55"></path>
+    <path d="M 113,75 C 118,86 123,93 129,100" fill="none" stroke="#C8B898" stroke-width="1" stroke-linecap="round" opacity="0.55"></path>
+
+    <!-- Sub-branches from V-vine midpoints -->
+    <path d="M 75,37 C 64,32 57,27 50,21" fill="none" stroke="#C8B898" stroke-width="1" stroke-linecap="round" opacity="0.55"></path>
+    <path d="M 75,37 C 86,32 93,27 100,21" fill="none" stroke="#C8B898" stroke-width="1" stroke-linecap="round" opacity="0.55"></path>
+    <path d="M 75,113 C 64,118 57,123 50,129" fill="none" stroke="#C8B898" stroke-width="1" stroke-linecap="round" opacity="0.55"></path>
+    <path d="M 75,113 C 86,118 93,123 100,129" fill="none" stroke="#C8B898" stroke-width="1" stroke-linecap="round" opacity="0.55"></path>
+
+    <!-- ===== LEAVES along vines ===== -->
+    <use href="#lf" transform="translate(23,55) rotate(-38)"></use>
+    <use href="#lf" transform="translate(50,42) rotate(10)"></use>
+    <use href="#lf" transform="translate(100,108) rotate(168)"></use>
+    <use href="#lf" transform="translate(127,95) rotate(142)"></use>
+    <use href="#lf" transform="translate(55,23) rotate(52)"></use>
+    <use href="#lf" transform="translate(42,50) rotate(100)"></use>
+    <use href="#lf" transform="translate(108,100) rotate(-80)"></use>
+    <use href="#lf" transform="translate(95,127) rotate(-28)"></use>
+    <!-- leaves on diagonal branches -->
+    <use href="#lf" transform="translate(56,56) rotate(-45)"></use>
+    <use href="#lf" transform="translate(94,56) rotate(45)"></use>
+    <use href="#lf" transform="translate(56,94) rotate(45)"></use>
+    <use href="#lf" transform="translate(94,94) rotate(-45)"></use>
+
+    <!-- ===== FLOWERS ===== -->
+
+    <!-- Center medallion -->
+    <use href="#f8" transform="translate(75,75)"></use>
+
+    <!-- Medium flowers at diagonal midpoints -->
+    <use href="#f6" transform="translate(38,38)"></use>
+    <use href="#f6" transform="translate(112,38)"></use>
+    <use href="#f6" transform="translate(38,112)"></use>
+    <use href="#f6" transform="translate(112,112)"></use>
+
+    <!-- Small flowers at edge midpoints (half-visible, complete when tiled) -->
+    <use href="#f6s" transform="translate(75,0)"></use>
+    <use href="#f6s" transform="translate(75,150)"></use>
+    <use href="#f6s" transform="translate(0,75)"></use>
+    <use href="#f6s" transform="translate(150,75)"></use>
+
+    <!-- Tiny flowers at branch tips -->
+    <use href="#f4" transform="translate(21,50)"></use>
+    <use href="#f4" transform="translate(21,100)"></use>
+    <use href="#f4" transform="translate(129,50)"></use>
+    <use href="#f4" transform="translate(129,100)"></use>
+    <use href="#f4" transform="translate(50,21)"></use>
+    <use href="#f4" transform="translate(100,21)"></use>
+    <use href="#f4" transform="translate(50,129)"></use>
+    <use href="#f4" transform="translate(100,129)"></use>
+
+    <!-- Quarter flowers at tile corners (combine when tiled) -->
+    <use href="#f6s" transform="translate(0,0)"></use>
+    <use href="#f6s" transform="translate(150,0)"></use>
+    <use href="#f6s" transform="translate(0,150)"></use>
+    <use href="#f6s" transform="translate(150,150)"></use>
+
+    <!-- Tiny dot accents -->
+    <circle cx="75" cy="56" r="1.2" fill="#C8B898" opacity="0.4"></circle>
+    <circle cx="75" cy="94" r="1.2" fill="#C8B898" opacity="0.4"></circle>
+    <circle cx="56" cy="75" r="1.2" fill="#C8B898" opacity="0.4"></circle>
+    <circle cx="94" cy="75" r="1.2" fill="#C8B898" opacity="0.4"></circle>
+
+  </pattern>
+</defs>
+<rect width="100%" height="100%" fill="url(#rug)"></rect>
+</svg>
+<!-- ──────────────────────────────────────────────────── -->
+
+<div class="overlay"></div>
+
+<main class="container">
+
+    <p class="label a1">EP &nbsp;·&nbsp; 2026</p>
+
+    <div class="ornament orn a2">
+        <div class="orn-l"></div>
+        <div class="orn-dt"></div>
+        <div class="orn-d"></div>
+        <div class="orn-dt"></div>
+        <div class="orn-r"></div>
+    </div>
+
+    <h1 class="title a3">EL<br>REY</h1>
+
+    <div class="ornament orn a4">
+        <div class="orn-l"></div>
+        <div class="orn-dt"></div>
+        <div class="orn-d"></div>
+        <div class="orn-dt"></div>
+        <div class="orn-r"></div>
+    </div>
+
+    <p class="artist a4">Reyan.Rami &amp; Vigaz Beats</p>
+    <p class="date a4">26 · 06 · 26</p>
+
+    <div class="links a5">
+        <a href="https://untitled.stream/buy/project/llhLyFylcQI6DYyFoj6qW" class="btn btn-primary">
+            ▷  Alle Tracks anhören
+        </a>
+        <!-- ERSETZE DIESE URL mit deinem Bandcamp-Link -->
+        <a href="https://dein-bandcamp-link.bandcamp.com/" class="btn btn-secondary">
+            Bandcamp
+        </a>
+        <div class="ig-row">
+            <a href="https://www.instagram.com/vigazbeats/" class="btn btn-ig" target="_blank" rel="noopener">
+                @vigazbeats
+            </a>
+            <a href="https://www.instagram.com/reyan.rami/" class="btn btn-ig" target="_blank" rel="noopener">
+                @reyan.rami
+            </a>
+        </div>
+    </div>
+
+    <p class="footer a6">© 2026 Reyan.Rami &amp; Vigaz Beats</p>
+
+</main>
+
+
+
+</body></html>
