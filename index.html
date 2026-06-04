@@ -421,23 +421,70 @@
 
 
     <script>
+        const START = 65;      // 1:05
+        const END   = 95;      // 1:35 (30 Sekunden)
+        const FADE_IN  = 0.8;  // Sekunden
+        const FADE_OUT = 2.0;  // Sekunden
+
+        function fadeIn(audio, duration) {
+            audio.volume = 0;
+            const steps = 30;
+            const interval = (duration * 1000) / steps;
+            let step = 0;
+            const t = setInterval(() => {
+                step++;
+                audio.volume = Math.min(1, step / steps);
+                if (step >= steps) clearInterval(t);
+            }, interval);
+        }
+
+        function fadeOut(audio, duration, callback) {
+            const startVol = audio.volume;
+            const steps = 30;
+            const interval = (duration * 1000) / steps;
+            let step = 0;
+            const t = setInterval(() => {
+                step++;
+                audio.volume = Math.max(0, startVol * (1 - step / steps));
+                if (step >= steps) {
+                    clearInterval(t);
+                    if (callback) callback();
+                }
+            }, interval);
+        }
+
         function togglePlay() {
-            const audio = document.getElementById('audio');
+            const audio    = document.getElementById('audio');
             const playIcon = document.getElementById('playIcon');
-            const pauseIcon = document.getElementById('pauseIcon');
+            const pauseIcon= document.getElementById('pauseIcon');
+
             if (audio.paused) {
+                audio.currentTime = START;
                 audio.play();
-                playIcon.style.display = 'none';
+                fadeIn(audio, FADE_IN);
+                playIcon.style.display  = 'none';
                 pauseIcon.style.display = 'block';
+
+                audio.ontimeupdate = () => {
+                    if (audio.currentTime >= END - FADE_OUT) {
+                        audio.ontimeupdate = null;
+                        fadeOut(audio, FADE_OUT, () => {
+                            audio.pause();
+                            audio.currentTime = START;
+                            audio.volume = 1;
+                            playIcon.style.display  = 'block';
+                            pauseIcon.style.display = 'none';
+                        });
+                    }
+                };
             } else {
+                audio.ontimeupdate = null;
                 audio.pause();
-                playIcon.style.display = 'block';
+                audio.currentTime = START;
+                audio.volume = 1;
+                playIcon.style.display  = 'block';
                 pauseIcon.style.display = 'none';
             }
-            audio.onended = function() {
-                playIcon.style.display = 'block';
-                pauseIcon.style.display = 'none';
-            };
         }
     </script>
 </body></html>
