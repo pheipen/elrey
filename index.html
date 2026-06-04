@@ -426,6 +426,8 @@
         const FADE_IN  = 2.0;  // Sekunden
         const FADE_OUT = 2.0;  // Sekunden
 
+        let previewStarted = false;
+
         function fadeIn(audio, duration) {
             audio.volume = 0;
             const steps = 30;
@@ -453,40 +455,48 @@
             }, interval);
         }
 
+        function attachTimeMonitor(audio, playIcon, pauseIcon) {
+            audio.ontimeupdate = () => {
+                if (audio.currentTime >= END - FADE_OUT) {
+                    audio.ontimeupdate = null;
+                    fadeOut(audio, FADE_OUT, () => {
+                        audio.pause();
+                        audio.currentTime = START;
+                        audio.volume = 1;
+                        previewStarted = false;
+                        playIcon.style.display  = 'block';
+                        pauseIcon.style.display = 'none';
+                    });
+                }
+            };
+        }
+
         function togglePlay() {
-            const audio    = document.getElementById('audio');
-            const playIcon = document.getElementById('playIcon');
-            const pauseIcon= document.getElementById('pauseIcon');
+            const audio     = document.getElementById('audio');
+            const playIcon  = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
 
             if (audio.paused) {
-                audio.volume = 0;
-                audio.currentTime = START;
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
+                if (!previewStarted) {
+                    // Erster Start: von Beginn des Previews mit Fade-In
+                    audio.volume = 0;
+                    audio.currentTime = START;
+                    previewStarted = true;
+                    audio.play().then(() => {
                         fadeIn(audio, FADE_IN);
-                    }).catch(err => console.log('Playback error:', err));
+                    }).catch(e => console.log('Playback error:', e));
+                } else {
+                    // Weiter nach Pause – kein Fade-In
+                    audio.play().catch(e => console.log('Playback error:', e));
                 }
                 playIcon.style.display  = 'none';
                 pauseIcon.style.display = 'block';
+                attachTimeMonitor(audio, playIcon, pauseIcon);
 
-                audio.ontimeupdate = () => {
-                    if (audio.currentTime >= END - FADE_OUT) {
-                        audio.ontimeupdate = null;
-                        fadeOut(audio, FADE_OUT, () => {
-                            audio.pause();
-                            audio.currentTime = START;
-                            audio.volume = 1;
-                            playIcon.style.display  = 'block';
-                            pauseIcon.style.display = 'none';
-                        });
-                    }
-                };
             } else {
+                // Pause – Position bleibt gespeichert
                 audio.ontimeupdate = null;
                 audio.pause();
-                audio.currentTime = START;
-                audio.volume = 1;
                 playIcon.style.display  = 'block';
                 pauseIcon.style.display = 'none';
             }
