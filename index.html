@@ -376,7 +376,7 @@
     <p class="artist a4">Reyan.Rami &amp; Vigaz Beats</p>
     <p class="date a4">26 · 06 · 26</p>
 
-    <audio id="audio" src="nie%20sein%20wie%20ihr%20demo%20v2.mp3" preload="none"></audio>
+    <audio id="audio" src="nie%20sein%20wie%20ihr%20demo%20v2.mp3" preload="metadata"></audio>
 
     <div class="links a5">
         <a href="https://untitled.stream/buy/project/llhLyFylcQI6DYyFoj6qW" class="btn btn-secondary">
@@ -459,9 +459,14 @@
             const pauseIcon= document.getElementById('pauseIcon');
 
             if (audio.paused) {
+                audio.volume = 0;
                 audio.currentTime = START;
-                audio.play();
-                fadeIn(audio, FADE_IN);
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        fadeIn(audio, FADE_IN);
+                    }).catch(err => console.log('Playback error:', err));
+                }
                 playIcon.style.display  = 'none';
                 pauseIcon.style.display = 'block';
 
