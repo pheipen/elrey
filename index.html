@@ -190,9 +190,23 @@
 </main>
 
 <script>
+    // Seite sichtbar machen, sobald die Schriftart geladen ist (unabhängig vom Rest)
+    function revealPage() {
+        document.documentElement.style.visibility = 'visible';
+    }
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.load("900 1em 'Big Shoulders Display'").then(function() {
+            return document.fonts.ready;
+        }).then(revealPage).catch(revealPage);
+        setTimeout(revealPage, 1500); // Sicherheitsnetz
+    } else {
+        revealPage();
+    }
+
     // Release: 26.06.2026, 00:00 Uhr Schweizer Zeit (CEST = UTC+2 im Juni)
     const RELEASE_DATE = new Date('2026-06-26T00:00:00+02:00').getTime();
     let earlyAccess = false;
+    let timer; // wichtig: VOR dem ersten updateCountdown()-Aufruf deklariert
 
     function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -213,7 +227,7 @@
         if (earlyAccess || diff <= 0) {
             document.getElementById('gate').style.display = 'none';
             document.getElementById('release').style.display = 'block';
-            clearInterval(timer);
+            if (timer) clearInterval(timer);
             return;
         }
 
@@ -236,22 +250,7 @@
     }
 
     updateCountdown();
-    const timer = setInterval(updateCountdown, 1000);
-
-    // Seite erst sichtbar machen, sobald die Schriftart vollständig geladen ist
-    if (document.fonts && document.fonts.ready) {
-        document.fonts.load("900 1em 'Big Shoulders Display'").then(function() {
-            return document.fonts.ready;
-        }).then(function() {
-            document.documentElement.style.visibility = 'visible';
-        });
-        // Sicherheitsnetz: nach 1.5s auf jeden Fall anzeigen, auch falls Font-Loading API hängt
-        setTimeout(function() {
-            document.documentElement.style.visibility = 'visible';
-        }, 1500);
-    } else {
-        document.documentElement.style.visibility = 'visible';
-    }
+    timer = setInterval(updateCountdown, 1000);
 </script>
 
 </body>
