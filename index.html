@@ -10,6 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@900&display=block" rel="stylesheet">
 
     <style>
+        html { visibility: hidden; }
+    </style>
+
+    <style>
         *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
         :root {
@@ -103,6 +107,20 @@
             margin-bottom: 18px;
         }
 
+        .early-access-btn {
+            margin-top: 38px;
+            background: transparent;
+            color: var(--muted);
+            border: none;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            text-decoration: underline;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='9' fill='none' stroke='%23000000' stroke-width='2'/%3E%3C/svg%3E") 10 10, pointer;
+        }
+        .early-access-btn:hover { color: #fff; }
+
         /* ── LINKS / BUTTONS ── */
         .links { width:100%; display:flex; flex-direction:column; gap:9px; }
 
@@ -142,6 +160,7 @@
     <div id="gate" class="a5">
         <p class="countdown-label">Release in</p>
         <div class="countdown" id="countdownTimer">00:00:00</div>
+        <button class="early-access-btn" onclick="checkEarlyAccess()">Early Access</button>
     </div>
 
     <!-- ═══ RELEASE CONTENT (ab 26.06.26 00:00 sichtbar) ═══ -->
@@ -173,14 +192,25 @@
 <script>
     // Release: 26.06.2026, 00:00 Uhr Schweizer Zeit (CEST = UTC+2 im Juni)
     const RELEASE_DATE = new Date('2026-06-26T00:00:00+02:00').getTime();
+    let earlyAccess = false;
 
     function pad(n) { return String(n).padStart(2, '0'); }
+
+    function checkEarlyAccess() {
+        const pw = window.prompt('Early Access Passwort:');
+        if (pw === 'lol10lol') {
+            earlyAccess = true;
+            updateCountdown();
+        } else if (pw !== null) {
+            alert('Falsches Passwort.');
+        }
+    }
 
     function updateCountdown() {
         const now = new Date().getTime();
         const diff = RELEASE_DATE - now;
 
-        if (diff <= 0) {
+        if (earlyAccess || diff <= 0) {
             document.getElementById('gate').style.display = 'none';
             document.getElementById('release').style.display = 'block';
             clearInterval(timer);
@@ -207,6 +237,21 @@
 
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
+
+    // Seite erst sichtbar machen, sobald die Schriftart vollständig geladen ist
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.load("900 1em 'Big Shoulders Display'").then(function() {
+            return document.fonts.ready;
+        }).then(function() {
+            document.documentElement.style.visibility = 'visible';
+        });
+        // Sicherheitsnetz: nach 1.5s auf jeden Fall anzeigen, auch falls Font-Loading API hängt
+        setTimeout(function() {
+            document.documentElement.style.visibility = 'visible';
+        }, 1500);
+    } else {
+        document.documentElement.style.visibility = 'visible';
+    }
 </script>
 
 </body>
